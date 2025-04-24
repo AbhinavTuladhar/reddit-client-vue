@@ -1,0 +1,80 @@
+@use '../abstracts/' as *;
+
+// html {
+//   scroll-behavior: smooth;
+//   scrollbar-gutter: stable;
+// }
+
+// /**
+// Styling that is used in detail pages and basic pages.
+// Low specificity so they can be easily over-ridden.
+// */
+body {
+  min-height: 100vh;
+  padding-top: 0 !important;
+  background: var(--primary-black);
+  color: white;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  hyphens: none;
+  line-height: 1.4;
+  overflow-y: scroll;
+
+  &.has-loaded {
+    opacity: 1;
+  }
+
+  &.no-scroll {
+    overflow: hidden;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+ol,
+table {
+  margin: 0;
+}
+
+ul,
+ol {
+  li {
+    line-height: 1.6;
+  }
+}
+
+blockquote {
+  position: relative;
+  padding-left: 2.5rem;
+  margin-left: 0;
+
+  &::before {
+    position: absolute;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background-color: var(--n-4);
+    content: '';
+  }
+}
+
+table {
+  border-collapse: collapse;
+
+  th {
+    background-color: var(--n-2);
+  }
+
+  th,
+  td {
+    padding: 0.5em 1rem;
+    border: 1px solid var(--n-4);
+    text-align: left;
+  }
+}

@@ -1,0 +1,68 @@
+@use './breakpoints' as b;
+
+:root {
+  /* Minimum gap to the margin */
+  --gap: clamp(1rem, -0.074rem + 4.771vw, 4rem);
+  --margin: minmax(var(--gap), 1fr);
+
+  /* Higher container level = smaller width */
+  --container-level-1-max-width: 1238px; /* margin of 64 */
+  --container-level-2-max-width: 1126px; /* margin of 120 */
+  --level-1-2-gap: clamp(0rem, -1.252rem + 5.567vw, 3.5rem);
+  --container-max-width: min(
+    100% - ((var(--level-1-2-gap) + var(--gap)) * 2),
+    var(--container-level-2-max-width)
+  );
+}
+
+@include b.mq('hd', min) {
+  :root {
+    --container-level-1-max-width: 1440px;
+    --container-level-2-max-width: 1280px;
+    --level-1-2-gap: 5rem;
+  }
+}
+
+%content-grid {
+  display: grid;
+  grid-template-columns:
+    [full-width-start] var(--margin)
+    [container-level-1-start] var(--level-1-2-gap)
+    [container-level-2-start]
+    var(--container-max-width)
+    [container-level-2-end] var(--level-1-2-gap)
+    [container-level-1-end] var(--margin) [full-width-end];
+
+  > * {
+    grid-column: full-width;
+  }
+
+  > .full-width {
+    grid-column: full-width;
+  }
+
+  > .container-level-1 {
+    grid-column: container-level-1;
+  }
+
+  > .container-level-2 {
+    grid-column: container-level-2;
+  }
+}
+
+%hero-content-grid {
+  --max-width-hero: 1920px;
+  --content-width: min(var(--max-width-hero), 100% - ((var(--gap) + var(--feature)) * 2));
+
+  @extend %content-grid;
+}
+
+%small-content-grid {
+  --gap: clamp(1rem, -2.417rem + 15.185vw, 11.25rem);
+  --widest-gap: minmax(var(--gap), 1fr);
+  --max-width: 768px;
+  --feature: clamp(0rem, -1.875rem + 8.333vw, 5.625rem);
+  --content-width: min(var(--max-width), 100% - ((var(--gap) + var(--feature)) * 2));
+
+  @extend %content-grid;
+}

@@ -1,0 +1,54 @@
+@use 'sass:math';
+@use 'sass:map';
+
+// For the clamp function
+$min-screen-size: 22.5rem;
+$max-screen-size: 85.375rem;
+
+/*
+* A handy function for clamping a value between two values, given two breakpoints.
+* The values are fluidly scaled between the breakpoints. The minimum and maximum screen sizes are
+* defined in the variables.scss file.
+*/
+@function fluid-clamp(
+  $min-size,
+  $max-size,
+  $min-screen-size: $min-screen-size,
+  $max-screen-size: $max-screen-size,
+  $unit: vw
+) {
+  $slope: math.div($max-size - $min-size, $max-screen-size - $min-screen-size);
+  $slope-to-unit: $slope * 100;
+  $intercept-rem: calc($min-size - $slope * $min-screen-size);
+  $min-size-rem: $min-size;
+  $max-size-rem: $max-size;
+  $rounded-slope: math.div(math.round($slope-to-unit * 10000), 10000);
+  $rounded-intercept: math.div(math.round($intercept-rem * 10000), 10000);
+
+  @return clamp(
+    #{$min-size-rem},
+    #{$rounded-slope}#{$unit} + #{$rounded-intercept},
+    #{$max-size-rem}
+  );
+}
+
+@function calculateRem($size) {
+  $remSize: $size / 16px;
+
+  @return $remSize * 1rem;
+}
+
+$section-paddings: (
+  // 80px on 1366px screens
+  'md-lg': #{fluid-clamp(2rem, 5rem)},
+  // 96px on 1366px screens
+  'lg': #{fluid-clamp(2.5rem, 6rem)},
+  // 106px on 1366px screens
+  'lg-xl': #{fluid-clamp(3rem, 6.625rem)},
+  // 120px on 1366px,
+  'xl': #{fluid-clamp(3.5rem, 7.5rem)}
+);
+
+@function get-padding($key) {
+  @return map.get($section-paddings, $key);
+}
