@@ -1,0 +1,62 @@
+html {
+  scroll-behavior: smooth;
+  scrollbar-gutter: stable;
+
+  /*
+  For stopping text from getting large when going to mobile browser -> view desktop site
+  */
+  text-size-adjust: 100%;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  border: 0 solid;
+  margin: 0;
+  text-decoration: none;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  padding: 0;
+  margin: 0;
+  background-color: inherit;
+  color: inherit;
+  font-family: inherit;
+  font-feature-settings: inherit;
+  font-size: 100%;
+  font-variation-settings: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: inherit;
+  transition: all 0.4s ease;
+}
+
+svg {
+  height: 1em;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.container-full {
+  @apply w-full;
+}
+
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+.no-scroll {
+  overflow: hidden;
+}
