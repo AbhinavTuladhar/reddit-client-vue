@@ -12,13 +12,14 @@
 body {
   min-height: 100vh;
   padding-top: 0 !important;
-  background: var(--primary-black);
+  background: hsl(204, 15%, 6%);
   color: white;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   hyphens: none;
   line-height: 1.4;
   overflow-y: scroll;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
   &.has-loaded {
     opacity: 1;
