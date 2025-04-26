@@ -14,3 +14,21 @@ export interface MediaPreview {
   variants: unknown
   id: string
 }
+
+export interface ImagePreview {
+  images: Image[]
+  enabled: boolean
+}
+
+interface Image {
+  source: Source
+  resolutions: Source[]
+  variants: unknown
+  id: string
+}
+
+interface Source {
+  url: string
+  width: number
+  height: number
+}

@@ -1,19 +1,34 @@
 <template>
   <div>
-    <div>The subreddit name is {{ subreddit }}</div>
     <div v-if="isLoading">Loading...</div>
     <div v-else-if="isError">Error</div>
-    <pre v-else>
-      {{ JSON.stringify(subredditData, null, 2) }}
-    </pre>
+    <div v-else-if="!subredditData">No data</div>
+    <div v-else class="post-card-container">
+      <PostCard
+        v-for="{
+          data: { author, title, score, subreddit, url, ups, id, secure_media, created, preview },
+        } in subredditData?.data.children"
+        :key="id"
+        :author="author"
+        :title="title"
+        :score="score"
+        :subreddit="subreddit"
+        :url="url"
+        :ups="ups"
+        :secure_media="secure_media"
+        :created="created"
+        :preview="preview"
+      />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useQuery } from '@tanstack/vue-query'
+import PostCard from '@/components/PostCard.vue'
 import SubredditService from '@/services/subreddit.service'
-import { computed } from 'vue'
 
 const route = useRoute()
 
@@ -29,4 +44,10 @@ const {
 })
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.post-card-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+</style>
