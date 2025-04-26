@@ -8,6 +8,6 @@ export interface Subreddit {
     children: {
       kind: string
       data: Post
-    }
+    }[]
   }
 }

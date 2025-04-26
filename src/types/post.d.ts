@@ -1,4 +1,4 @@
-import type { MediaPreview } from './media'
+import type { ImagePreview } from './media'
 
 export interface Post {
   subreddit: string
@@ -11,7 +11,7 @@ export interface Post {
   link_flair_text_color: string
   ups: number
   total_awards_received: number
-  secure_media: unknown
+  secure_media: SecureMedia | null
   score: number
   edited: boolean
   created: number
@@ -28,10 +28,21 @@ export interface Post {
   subreddit_subscribers: number
   created_utc: number
   media: unknown
-  preview: {
-    images: MediaPreview[]
-  }
+  preview?: ImagePreview
   upvote_ratio
+}
+
+export interface SecureMedia {
+  reddit_video: {
+    height: number
+    width: number
+    dash_url: number
+    duration: number
+    is_gif: boolean
+    scrubber_media_url: string
+    dash_url: string
+    hls_url: string
+  }
 }
 
 export interface PostDetail {
