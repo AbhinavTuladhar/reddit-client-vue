@@ -6,8 +6,19 @@
     <div v-else class="post-card-container">
       <PostCard
         v-for="{
-          data: { author, title, score, subreddit, url, ups, id, secure_media, created, preview },
-        } in subredditData?.data.children"
+          author,
+          title,
+          score,
+          subreddit,
+          url,
+          ups,
+          id,
+          secure_media,
+          created,
+          image,
+          gallery_image_urls,
+          video,
+        } in transformSubredditResponse(subredditData).posts"
         :key="id"
         :author="author"
         :title="title"
@@ -17,7 +28,9 @@
         :ups="ups"
         :secure_media="secure_media"
         :created="created"
-        :preview="preview"
+        :image="image"
+        :gallery_image_urls="gallery_image_urls"
+        :video="video"
       />
     </div>
   </div>
@@ -29,6 +42,8 @@ import { useRoute } from 'vue-router'
 import { useQuery } from '@tanstack/vue-query'
 import PostCard from '@/components/PostCard.vue'
 import SubredditService from '@/services/subreddit.service'
+import { watch } from 'vue'
+import { transformSubredditResponse } from '../helpers/subreddit.helpers'
 
 const route = useRoute()
 
@@ -41,6 +56,13 @@ const {
 } = useQuery({
   queryKey: ['subreddit', subreddit],
   queryFn: () => SubredditService.getPosts(subreddit.value),
+})
+
+watch(subredditData, () => {
+  if (!subredditData.value) {
+    return
+  }
+  console.log(transformSubredditResponse(subredditData.value))
 })
 </script>
 

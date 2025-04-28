@@ -32,3 +32,20 @@ interface Source {
   width: number
   height: number
 }
+
+/**
+ * For image gallery
+ */
+export interface Gallery {
+  status: string
+  e: string
+  m: string
+  p: GalleryImage[]
+  s: GalleryImage
+  id: string
+}
+interface GalleryImage {
+  x: number
+  y: number
+  u: string
+}

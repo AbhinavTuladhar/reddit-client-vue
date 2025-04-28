@@ -1,1 +1,1 @@
-export const sanitiseImageUrl = (url: string) => url.replace('&amp;', '&')
+export const sanitiseImageUrl = (url: string) => url.replace(/&amp;/g, '&')

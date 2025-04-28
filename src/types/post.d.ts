@@ -1,4 +1,4 @@
-import type { ImagePreview } from './media'
+import type { Gallery, ImagePreview } from './media'
 
 export interface Post {
   subreddit: string
@@ -11,7 +11,7 @@ export interface Post {
   link_flair_text_color: string
   ups: number
   total_awards_received: number
-  secure_media: SecureMedia | null
+  secure_media?: SecureMedia | null
   score: number
   edited: boolean
   created: number
@@ -29,7 +29,8 @@ export interface Post {
   created_utc: number
   media: unknown
   preview?: ImagePreview
-  upvote_ratio
+  upvote_ratio: number
+  media_metadata?: Record<string, Gallery>
 }
 
 export interface SecureMedia {
@@ -42,6 +43,7 @@ export interface SecureMedia {
     scrubber_media_url: string
     dash_url: string
     hls_url: string
+    fallback_url: string
   }
 }
 
