@@ -11,7 +11,7 @@ export interface Post {
   link_flair_text_color: string
   ups: number
   total_awards_received: number
-  secure_media: SecureMedia | null
+  secure_media?: SecureMedia | null
   score: number
   edited: boolean
   created: number
@@ -43,6 +43,7 @@ export interface SecureMedia {
     scrubber_media_url: string
     dash_url: string
     hls_url: string
+    fallback_url: string
   }
 }
 
