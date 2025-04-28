@@ -1,4 +1,4 @@
-import type { ImagePreview } from './media'
+import type { Gallery, ImagePreview } from './media'
 
 export interface Post {
   subreddit: string
@@ -29,7 +29,8 @@ export interface Post {
   created_utc: number
   media: unknown
   preview?: ImagePreview
-  upvote_ratio
+  upvote_ratio: number
+  media_metadata?: Record<string, Gallery>
 }
 
 export interface SecureMedia {

@@ -40,8 +40,6 @@ type PostCardProps = Pick<
 >
 
 const { author, title, score, subreddit, url, ups, preview } = defineProps<PostCardProps>()
-
-console.log(preview)
 </script>
 
 <style lang="scss" scoped>

@@ -29,6 +29,8 @@ import { useRoute } from 'vue-router'
 import { useQuery } from '@tanstack/vue-query'
 import PostCard from '@/components/PostCard.vue'
 import SubredditService from '@/services/subreddit.service'
+import { watch } from 'vue'
+import { transformSubredditResponse } from '../helpers/subreddit.helpers'
 
 const route = useRoute()
 
@@ -41,6 +43,14 @@ const {
 } = useQuery({
   queryKey: ['subreddit', subreddit],
   queryFn: () => SubredditService.getPosts(subreddit.value),
+})
+
+watch(subredditData, () => {
+  if (!subredditData.value) {
+    return
+  }
+  console.log('This is the transformed data')
+  console.log(transformSubredditResponse(subredditData.value))
 })
 </script>
 
