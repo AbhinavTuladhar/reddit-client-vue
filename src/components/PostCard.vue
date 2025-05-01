@@ -1,11 +1,14 @@
 <template>
   <article class="post">
     <div class="first-row">
-      <span> {{ `r/${subreddit}` }}</span>
-      <span> . </span>
-      <span> {{ calculateDateString(new Date(created * 1000)) }}</span>
+      <span class="post__sub-icon">r/</span>
+      <RouterLink class="post__subreddit" :to="subredditLink"> {{ `r/${subreddit}` }}</RouterLink>
+      <span class="post__dot"> . </span>
+      <span class="post__date"> {{ calculateDateString(new Date(created * 1000)) }}</span>
     </div>
-    <img v-if="image" :src="image" alt="title" />
+    <h2 class="post__title">{{ title }}</h2>
+    <SingleImage v-if="image" :image="image" />
+    <!-- <img v-if="image" :src="image" /> -->
     <div v-if="gallery_image_urls" class="image-gallery">
       <h2>Image gallery</h2>
       <img v-for="image in gallery_image_urls" :src="image" alt="image" :key="image" />
@@ -47,6 +50,7 @@
 import type { PostTransformed } from '@/types/computed'
 import { sanitiseImageUrl } from '@/utils/string.utils'
 import { calculateDateString } from '../utils/date.utils'
+import SingleImage from './SingleImage.vue'
 
 type PostCardProps = Pick<
   PostTransformed,
@@ -67,9 +71,7 @@ type PostCardProps = Pick<
 const { author, title, score, subreddit, url, ups, image, gallery_image_urls, video, selftext } =
   defineProps<PostCardProps>()
 
-if (video) {
-  console.log(video)
-}
+const subredditLink = `/r/${subreddit}`
 </script>
 
 <style lang="scss" scoped>
@@ -80,6 +82,25 @@ if (video) {
 .post {
   img {
     max-width: 320px;
+  }
+
+  &__sub-icon {
+    display: grid;
+    display: inline-block;
+    padding-inline: 0.5rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    border-radius: 50%;
+    border: 1px solid white;
+    place-items: center;
+    min-width: 1.5rem;
+    margin-right: 1rem;
+  }
+
+  &__title {
+    margin-block: 0.5rem 1rem;
+    font-size: 1.25rem;
+    font-weight: bold;
   }
 }
 </style>
