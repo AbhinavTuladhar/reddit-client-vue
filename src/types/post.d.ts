@@ -11,7 +11,7 @@ export interface Post {
   link_flair_text_color: string
   ups: number
   total_awards_received: number
-  secure_media?: SecureMedia | null
+  secure_media?: SecureMedia | null | undefined
   score: number
   edited: boolean
   created: number
@@ -34,7 +34,7 @@ export interface Post {
 }
 
 export interface SecureMedia {
-  reddit_video: {
+  reddit_video?: {
     height: number
     width: number
     dash_url: number
@@ -44,6 +44,19 @@ export interface SecureMedia {
     dash_url: string
     hls_url: string
     fallback_url: string
+  }
+  oembed?: {
+    description: 'string'
+    height: number
+    html: string
+    provider_name: string
+    thumbnail_height: number
+    thumbnail_url: string
+    thumbnail_width: number
+    title: string
+    type: string
+    version: string
+    width: number
   }
 }
 

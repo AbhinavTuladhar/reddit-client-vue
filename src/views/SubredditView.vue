@@ -18,6 +18,7 @@
           image,
           gallery_image_urls,
           video,
+          selftext,
         } in transformSubredditResponse(subredditData).posts"
         :key="id"
         :author="author"
@@ -31,6 +32,7 @@
         :image="image"
         :gallery_image_urls="gallery_image_urls"
         :video="video"
+        :selftext="selftext"
       />
     </div>
   </div>
