@@ -47,31 +47,30 @@
 </template>
 
 <script setup lang="ts">
-import type { PostTransformed } from '@/types/computed'
+import type { Post } from '@/types/post'
 import { sanitiseImageUrl } from '@/utils/string.utils'
+import { toRefs } from 'vue'
+import { transformPostResponse } from '../helpers/post.helpers'
 import { calculateDateString } from '../utils/date.utils'
 import SingleImage from './SingleImage.vue'
 
-type PostCardProps = Pick<
-  PostTransformed,
-  | 'author'
-  | 'title'
-  | 'score'
-  | 'subreddit'
-  | 'url'
-  | 'ups'
-  | 'secure_media'
-  | 'created'
-  | 'image'
-  | 'gallery_image_urls'
-  | 'video'
-  | 'selftext'
->
+const { post } = defineProps<{ post: Post }>()
+const {
+  author,
+  title,
+  score,
+  subreddit,
+  url,
+  ups,
+  secure_media,
+  created,
+  image,
+  gallery_image_urls,
+  video,
+  selftext,
+} = toRefs(transformPostResponse(post))
 
-const { author, title, score, subreddit, url, ups, image, gallery_image_urls, video, selftext } =
-  defineProps<PostCardProps>()
-
-const subredditLink = `/r/${subreddit}`
+const subredditLink = `/r/${subreddit.value}`
 </script>
 
 <style lang="scss" scoped>

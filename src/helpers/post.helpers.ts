@@ -2,7 +2,7 @@ import type { Post } from '@/types/post'
 import { sanitiseImageUrl } from '@/utils/string.utils'
 
 export const transformPostResponse = (post: Post) => {
-  const { preview, media_metadata, secure_media, ...rest } = post
+  const { preview, media_metadata, secure_media, url, ...rest } = post
 
   /**
    * Depending on the type of the post, certain keys are present or absent
@@ -30,6 +30,9 @@ export const transformPostResponse = (post: Post) => {
     video = secure_media
   }
 
+  const isRedditLink = url.includes('reddit.com')
+  const isTextOnlyPost = !image && !gallery_image_urls && !video
+
   // For the case of video
   return {
     ...rest,
@@ -37,5 +40,8 @@ export const transformPostResponse = (post: Post) => {
     gallery_image_urls,
     video,
     secure_media,
+    url,
+    is_reddit_link: isRedditLink,
+    is_text_only_post: isTextOnlyPost,
   }
 }
