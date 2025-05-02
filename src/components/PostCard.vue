@@ -8,11 +8,7 @@
     </div>
     <h2 class="post__title">{{ title }}</h2>
     <SingleImage v-if="image" :image="image" />
-    <!-- <img v-if="image" :src="image" /> -->
-    <div v-if="gallery_image_urls" class="image-gallery">
-      <h2>Image gallery</h2>
-      <img v-for="image in gallery_image_urls" :src="image" alt="image" :key="image" />
-    </div>
+    <ImageGallery v-if="gallery_images" :images="gallery_images" />
     <div v-if="video">
       <!-- If it is a reddit video -->
       <video
@@ -52,6 +48,7 @@ import { sanitiseImageUrl } from '@/utils/string.utils'
 import { transformPostResponse } from '../helpers/post.helpers'
 import { calculateDateString } from '../utils/date.utils'
 import SingleImage from './SingleImage.vue'
+import ImageGallery from './ImageGallery.vue'
 
 const { post } = defineProps<{ post: Post }>()
 const {
@@ -64,7 +61,7 @@ const {
   secure_media,
   created,
   image,
-  gallery_image_urls,
+  gallery_images,
   video,
   selftext,
 } = transformPostResponse(post)
