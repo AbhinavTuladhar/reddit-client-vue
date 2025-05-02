@@ -1,3 +1,4 @@
+import type { SingleImage } from '@/types/media'
 import type { Post } from '@/types/post'
 import { sanitiseImageUrl } from '@/utils/string.utils'
 
@@ -12,7 +13,7 @@ export const transformPostResponse = (post: Post) => {
    * Text-only -> selftext is not empty
    */
 
-  let image: string | undefined = undefined
+  let image: SingleImage | undefined = undefined
   let gallery_image_urls: string[] | undefined = undefined
   let video: typeof secure_media = undefined
 
@@ -20,7 +21,11 @@ export const transformPostResponse = (post: Post) => {
     // Images with different resolutions
     const imagesList = preview.images[preview.images.length - 1].resolutions
     const targetImage = imagesList[imagesList.length - 1]
-    image = sanitiseImageUrl(targetImage.url)
+    image = {
+      width: targetImage.width,
+      height: targetImage.height,
+      url: targetImage.url,
+    }
   } else if (media_metadata) {
     const imagesList = Object.values(media_metadata)
     const targetImageList = imagesList.map((image) => image.s)

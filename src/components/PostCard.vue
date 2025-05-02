@@ -49,7 +49,6 @@
 <script setup lang="ts">
 import type { Post } from '@/types/post'
 import { sanitiseImageUrl } from '@/utils/string.utils'
-import { toRefs } from 'vue'
 import { transformPostResponse } from '../helpers/post.helpers'
 import { calculateDateString } from '../utils/date.utils'
 import SingleImage from './SingleImage.vue'
@@ -68,9 +67,9 @@ const {
   gallery_image_urls,
   video,
   selftext,
-} = toRefs(transformPostResponse(post))
+} = transformPostResponse(post)
 
-const subredditLink = `/r/${subreddit.value}`
+const subredditLink = `/r/${subreddit}`
 </script>
 
 <style lang="scss" scoped>

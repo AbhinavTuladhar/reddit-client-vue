@@ -49,3 +49,9 @@ interface GalleryImage {
   y: number
   u: string
 }
+
+export interface SingleImage {
+  url: string
+  width: number
+  height: number
+}
