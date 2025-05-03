@@ -2,6 +2,7 @@ import { createApp } from 'vue'
 import { VueQueryPlugin, type VueQueryPluginOptions } from '@tanstack/vue-query'
 
 import { createPinia } from 'pinia'
+import { register } from 'swiper/element/bundle'
 
 import App from './App.vue'
 import router from './router'
@@ -21,5 +22,6 @@ const vueQueryPluginOptions: VueQueryPluginOptions = {
 app.use(createPinia())
 app.use(router)
 app.use(VueQueryPlugin, vueQueryPluginOptions)
+register()
 
 app.mount('#app')

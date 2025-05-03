@@ -1,5 +1,5 @@
+import type { Post } from '@/types/post'
 import type { Subreddit } from '@/types/subreddit'
-import { transformPostResponse } from './post.helpers'
 
 export const transformSubredditResponse = (data: Subreddit) => {
   const actualData = data.data.children.map((post) => post.data)
@@ -9,6 +9,6 @@ export const transformSubredditResponse = (data: Subreddit) => {
 
   return {
     after,
-    posts: actualData.map(transformPostResponse),
+    posts: actualData as Post[],
   }
 }

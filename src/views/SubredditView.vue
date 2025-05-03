@@ -5,34 +5,9 @@
     <div v-else-if="!subredditData">No data</div>
     <div v-else class="post-card-container">
       <PostCard
-        v-for="{
-          author,
-          title,
-          score,
-          subreddit,
-          url,
-          ups,
-          id,
-          secure_media,
-          created,
-          image,
-          gallery_image_urls,
-          video,
-          selftext,
-        } in transformSubredditResponse(subredditData).posts"
-        :key="id"
-        :author="author"
-        :title="title"
-        :score="score"
-        :subreddit="subreddit"
-        :url="url"
-        :ups="ups"
-        :secure_media="secure_media"
-        :created="created"
-        :image="image"
-        :gallery_image_urls="gallery_image_urls"
-        :video="video"
-        :selftext="selftext"
+        v-for="post in transformSubredditResponse(subredditData).posts"
+        :key="post.id"
+        :post="post"
       />
     </div>
   </div>
@@ -64,7 +39,8 @@ watch(subredditData, () => {
   if (!subredditData.value) {
     return
   }
-  console.log(transformSubredditResponse(subredditData.value))
+  // console.log(transformSubredditResponse(subredditData.value))
+  console.log(subredditData.value)
 })
 </script>
 
