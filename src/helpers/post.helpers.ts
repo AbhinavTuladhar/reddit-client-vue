@@ -34,6 +34,7 @@ export const transformPostResponse = (post: Post) => {
       x: image.x,
       y: image.y,
     }))
+  } else {
     video = secure_media
   }
 
