@@ -37,18 +37,3 @@ $max-screen-size: 85.375rem;
 
   @return $remSize * 1rem;
 }
-
-$section-paddings: (
-  // 80px on 1366px screens
-  'md-lg': #{fluid-clamp(2rem, 5rem)},
-  // 96px on 1366px screens
-  'lg': #{fluid-clamp(2.5rem, 6rem)},
-  // 106px on 1366px screens
-  'lg-xl': #{fluid-clamp(3rem, 6.625rem)},
-  // 120px on 1366px,
-  'xl': #{fluid-clamp(3.5rem, 7.5rem)}
-);
-
-@function get-padding($key) {
-  @return map.get($section-paddings, $key);
-}

@@ -39,8 +39,8 @@ watch(subredditData, () => {
   if (!subredditData.value) {
     return
   }
-  // console.log(transformSubredditResponse(subredditData.value))
-  console.log(subredditData.value)
+  console.log(transformSubredditResponse(subredditData.value))
+  // console.log(subredditData.value)
 })
 </script>
 
