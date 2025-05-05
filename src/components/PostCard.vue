@@ -8,47 +8,34 @@
     </div>
     <h2 class="post__title">{{ title }}</h2>
     <SingleImage v-if="image" :image="image" />
-    <ImageGallery v-if="gallery_images" :images="gallery_images" />
-    <div v-if="video">
-      <!-- If it is a reddit video -->
-      <video
-        v-if="video.reddit_video"
-        controls
-        :width="video.reddit_video.width"
-        :height="video.reddit_video.height"
-      >
-        <source :src="sanitiseImageUrl(video.reddit_video.fallback_url)" />
-      </video>
-
-      <!-- If it is an embedded video -->
-      <div v-if="video.oembed" v-html="video.oembed.html"></div>
-    </div>
-    <div v-if="selftext">
+    <ImageGallery v-else-if="gallery_images" :images="gallery_images" />
+    <Video v-else-if="video" :video="video" />
+    <div v-else-if="selftext">
       {{ selftext }}
     </div>
-  </article>
 
-  <div class="hidden">
-    <div>Subreddit: {{ subreddit }}</div>
-    <div>Author: {{ author }}</div>
-    <div>Title: {{ title }}</div>
-    <div>Score: {{ score }}</div>
-    <div>Upvotes: {{ ups }}</div>
-    <div>Url: {{ url }}</div>
-    <div>Created at: {{ new Date(created * 1000) }}</div>
-    <pre v-if="secure_media">
-      {{ JSON.stringify(secure_media, null, 2) }}
-    </pre>
-  </div>
+    <div class="hidden">
+      <div>Subreddit: {{ subreddit }}</div>
+      <div>Author: {{ author }}</div>
+      <div>Title: {{ title }}</div>
+      <div>Score: {{ score }}</div>
+      <div>Upvotes: {{ ups }}</div>
+      <div>Url: {{ url }}</div>
+      <div>Created at: {{ new Date(created * 1000) }}</div>
+      <pre v-if="secure_media">
+        {{ JSON.stringify(secure_media, null, 2) }}
+      </pre>
+    </div>
+  </article>
 </template>
 
 <script setup lang="ts">
 import type { Post } from '@/types/post'
-import { sanitiseImageUrl } from '@/utils/string.utils'
 import { transformPostResponse } from '../helpers/post.helpers'
 import { calculateDateString } from '../utils/date.utils'
-import SingleImage from './SingleImage.vue'
 import ImageGallery from './ImageGallery.vue'
+import SingleImage from './SingleImage.vue'
+import Video from './Video.vue'
 
 const { post } = defineProps<{ post: Post }>()
 const {
