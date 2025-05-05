@@ -36,7 +36,7 @@ const formattedScore = Intl.NumberFormat('en', { notation: 'compact' }).format(u
     align-items: center;
     gap: 0.5rem;
     padding: 0.75rem;
-    background: hsl(200, 12%, 19%);
+    background: var(--reddit-gray);
     border-radius: 100vw;
     width: fit-content;
     transition: background 0.2s ease-out;
@@ -45,7 +45,7 @@ const formattedScore = Intl.NumberFormat('en', { notation: 'compact' }).format(u
       cursor: pointer;
 
       &:hover {
-        background: hsl(200, 13%, 23%);
+        background: var(--reddit-gray-hover);
       }
     }
 

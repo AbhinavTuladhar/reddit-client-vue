@@ -37,7 +37,7 @@ export interface SecureMedia {
   reddit_video?: {
     height: number
     width: number
-    dash_url: number
+    dash_url: string
     duration: number
     is_gif: boolean
     scrubber_media_url: string

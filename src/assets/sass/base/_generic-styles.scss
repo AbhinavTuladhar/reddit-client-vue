@@ -12,7 +12,7 @@
 body {
   min-height: 100vh;
   padding-top: 0 !important;
-  background: hsl(204, 15%, 6%);
+  background: var(--main-background);
   color: white;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
