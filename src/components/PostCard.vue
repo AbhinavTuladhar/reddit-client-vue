@@ -10,7 +10,7 @@
     <SingleImage v-if="image" :image="image" />
     <ImageGallery v-else-if="gallery_images" :images="gallery_images" />
     <Video v-else-if="video" :video="video" />
-    <div v-else-if="selftext">
+    <div v-else-if="selftext" class="post__description">
       {{ selftext }}
     </div>
 
@@ -83,6 +83,14 @@ const subredditLink = `/r/${subreddit}`
     margin-block: 0.5rem 1rem;
     font-size: 1.25rem;
     font-weight: bold;
+  }
+
+  &__description {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
   }
 }
 </style>
