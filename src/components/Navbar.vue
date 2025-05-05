@@ -29,7 +29,7 @@ const menuItems = [
   justify-content: space-between;
   align-items: center;
   padding: 0.25rem 1rem;
-  border-bottom: 1px solid hsl(195, 3%, 25%);
+  border-bottom: 1px solid var(--border);
 
   &__icon {
     display: flex;
@@ -39,7 +39,7 @@ const menuItems = [
     .circle {
       width: 2rem;
       height: 2rem;
-      background: hsl(16, 100%, 50%);
+      background: var(--reddit-orange);
       border-radius: 50%;
     }
   }
@@ -52,7 +52,7 @@ const menuItems = [
     input {
       padding: 0.5rem 1rem;
       border-radius: 100vw;
-      background: hsl(200, 12%, 19%);
+      background: var(--reddit-gray);
       width: 100%;
     }
   }
