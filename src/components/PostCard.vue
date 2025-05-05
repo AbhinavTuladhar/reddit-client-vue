@@ -13,6 +13,7 @@
     <div v-else-if="selftext" class="post__description">
       {{ selftext }}
     </div>
+    <PostCardFooter :upvotes="ups" :comments="23" />
 
     <div class="hidden">
       <div>Subreddit: {{ subreddit }}</div>
@@ -36,6 +37,7 @@ import { calculateDateString } from '../utils/date.utils'
 import ImageGallery from './ImageGallery.vue'
 import SingleImage from './SingleImage.vue'
 import Video from './Video.vue'
+import PostCardFooter from './PostCardFooter.vue'
 
 const { post } = defineProps<{ post: Post }>()
 const {
