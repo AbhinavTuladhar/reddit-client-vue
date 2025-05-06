@@ -29,7 +29,7 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
 import type { GalleryImage } from '@/types/media'
-import SingleImage from './SingleImage.vue'
+import SingleImage from '@/components/media/SingleImage.vue'
 defineProps<{ images: GalleryImage[] }>()
 
 const modules = [Navigation, Pagination]

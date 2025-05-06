@@ -1,25 +1,30 @@
 <template>
-  <div>
-    <div v-if="isLoading">Loading...</div>
-    <div v-else-if="isError">Error</div>
-    <div v-else-if="!subredditData">No data</div>
-    <div v-else class="post-card-container">
-      <PostCard
-        v-for="post in transformSubredditResponse(subredditData).posts"
-        :key="post.id"
-        :post="post"
-      />
+  <div class="subreddit-grid">
+    <div class="left-column">
+      <div v-if="isLoadingPosts">Loading...</div>
+      <div v-else-if="isPostsError">Error</div>
+      <div v-else-if="!subredditData">No data</div>
+      <div v-else class="post-card-container">
+        <PostCard
+          v-for="post in transformSubredditResponse(subredditData).posts"
+          :key="post.id"
+          :post="post"
+        />
+      </div>
+    </div>
+    <div class="right-colum">
+      <SubredditSidebar :subreddit="subreddit" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useQuery } from '@tanstack/vue-query'
-import PostCard from '@/components/PostCard.vue'
+import PostCard from '@/components/post/PostCard.vue'
+import SubredditSidebar from '@/components/subreddit/SubredditSidebar.vue'
 import SubredditService from '@/services/subreddit.service'
-import { watch } from 'vue'
 import { transformSubredditResponse } from '../helpers/subreddit.helpers'
 
 const route = useRoute()
@@ -28,8 +33,8 @@ const subreddit = computed(() => route.params.subreddit as string)
 
 const {
   data: subredditData,
-  isLoading,
-  isError,
+  isLoading: isLoadingPosts,
+  isError: isPostsError,
 } = useQuery({
   queryKey: ['subreddit', subreddit],
   queryFn: () => SubredditService.getPosts(subreddit.value),
@@ -45,6 +50,12 @@ watch(subredditData, () => {
 </script>
 
 <style lang="scss" scoped>
+.subreddit-grid {
+  display: grid;
+  grid-template-columns: 1fr 20rem;
+  gap: 2rem;
+}
+
 .post-card-container {
   display: flex;
   flex-direction: column;
