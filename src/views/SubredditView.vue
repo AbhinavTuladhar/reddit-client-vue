@@ -1,19 +1,22 @@
 <template>
-  <div class="subreddit-grid">
-    <div class="left-column">
-      <div v-if="isLoadingPosts">Loading...</div>
-      <div v-else-if="isPostsError">Error</div>
-      <div v-else-if="!subredditData">No data</div>
-      <div v-else class="post-card-container">
-        <PostCard
-          v-for="post in transformSubredditResponse(subredditData).posts"
-          :key="post.id"
-          :post="post"
-        />
+  <div>
+    <SubredditBanner v-if="!['all', 'popular'].includes(subreddit)" :subreddit="subreddit" />
+    <div class="subreddit-grid">
+      <div class="left-column">
+        <div v-if="isLoadingPosts">Loading...</div>
+        <div v-else-if="isPostsError">Error</div>
+        <div v-else-if="!subredditData">No data</div>
+        <div v-else class="post-card-container">
+          <PostCard
+            v-for="post in transformSubredditResponse(subredditData).posts"
+            :key="post.id"
+            :post="post"
+          />
+        </div>
       </div>
-    </div>
-    <div class="right-colum">
-      <SubredditSidebar :subreddit="subreddit" />
+      <div class="right-colum">
+        <SubredditSidebar :subreddit="subreddit" />
+      </div>
     </div>
   </div>
 </template>
@@ -26,6 +29,7 @@ import PostCard from '@/components/post/PostCard.vue'
 import SubredditSidebar from '@/components/subreddit/SubredditSidebar.vue'
 import SubredditService from '@/services/subreddit.service'
 import { transformSubredditResponse } from '../helpers/subreddit.helpers'
+import SubredditBanner from '@/components/subreddit/SubredditBanner.vue'
 
 const route = useRoute()
 
