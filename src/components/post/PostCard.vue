@@ -32,12 +32,12 @@
 
 <script setup lang="ts">
 import type { Post } from '@/types/post'
-import { transformPostResponse } from '../helpers/post.helpers'
-import { calculateDateString } from '../utils/date.utils'
-import ImageGallery from './ImageGallery.vue'
-import SingleImage from './SingleImage.vue'
-import Video from './Video.vue'
-import PostCardFooter from './PostCardFooter.vue'
+import { transformPostResponse } from '@/helpers/post.helpers'
+import { calculateDateString } from '@/utils/date.utils'
+import ImageGallery from '../media/ImageGallery.vue'
+import SingleImage from '../media/SingleImage.vue'
+import Video from '../media/Video.vue'
+import PostCardFooter from '../post/PostCardFooter.vue'
 
 const { post } = defineProps<{ post: Post }>()
 const {

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { VueQueryDevtools } from '@tanstack/vue-query-devtools'
 import { RouterView, useRoute } from 'vue-router'
-import Navbar from './components/Navbar.vue'
+import Navbar from './components/layouts/Navbar.vue'
 
 const { fullPath } = useRoute()
 </script>
