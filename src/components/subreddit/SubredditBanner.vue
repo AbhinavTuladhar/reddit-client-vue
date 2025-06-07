@@ -27,7 +27,12 @@ const { data, isLoading, isError } = useQuery({
 })
 
 const bannerImage = computed(() => data.value?.data.banner_background_image ?? '')
-const subredditIcon = computed(() => data.value?.data.community_icon ?? '')
+const subredditIcon = computed(() => {
+  const firstIcon = data.value?.data.icon_img
+  const secondIcon = data.value?.data.community_icon
+
+  return firstIcon || secondIcon || ''
+})
 
 watch(data, () => {
   if (data.value) {
@@ -38,6 +43,7 @@ watch(data, () => {
 
 <style scoped lang="scss">
 .sub-banner {
+  width: 100%;
   max-height: 8rem;
   object-fit: cover;
 
