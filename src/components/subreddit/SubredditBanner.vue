@@ -44,7 +44,7 @@ watch(data, () => {
 <style scoped lang="scss">
 .sub-banner {
   width: 100%;
-  max-height: 8rem;
+  height: 8rem;
   object-fit: cover;
 
   &--fallback {
