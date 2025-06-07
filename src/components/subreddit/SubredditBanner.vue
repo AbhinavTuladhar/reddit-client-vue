@@ -6,7 +6,11 @@
     <div v-else class="banner-container">
       <img v-if="bannerImage" class="sub-banner" :src="sanitiseImageUrl(bannerImage)" />
       <div v-else class="sub-banner sub-banner--fallback"></div>
-      <img class="sub-icon" :src="sanitiseImageUrl(subredditIcon)" />
+
+      <div class="sub-banner__icon-title-container">
+        <img class="sub-icon" :src="sanitiseImageUrl(subredditIcon)" />
+        <h2>r/{{ subreddit }}</h2>
+      </div>
     </div>
   </div>
 </template>
@@ -51,12 +55,22 @@ watch(data, () => {
     height: 5rem;
     background: var(--reddit-gray);
   }
-}
 
-.sub-icon {
-  border-radius: 100%;
-  width: 5rem;
-  height: 5rem;
-  margin-top: -2.5rem;
+  &__icon-title-container {
+    display: flex;
+    margin-top: -1.5rem;
+    gap: 0.5rem;
+    align-items: flex-end;
+
+    .sub-icon {
+      border-radius: 100%;
+      width: 5rem;
+      height: 5rem;
+    }
+
+    h2 {
+      font-size: 2rem;
+    }
+  }
 }
 </style>
