@@ -5,10 +5,10 @@
       <span class="value"> {{ formattedScore }}</span>
       <UpvoteArrow class="score__downvote" />
     </div>
-    <div class="badge comments">
+    <RouterLink :to="permalink" class="badge comments">
       <Comment />
-      <span class="value"> {{ comments }} </span>
-    </div>
+      <span class="value"> {{ formattedComments }} </span>
+    </RouterLink>
     <div class="badge share">
       <Share />
       <span class="value"> Share </span>
@@ -17,13 +17,22 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
 import Comment from '@/assets/icons/comment.svg?component'
 import Share from '@/assets/icons/share.svg?component'
 import UpvoteArrow from '@/assets/icons/arrow.svg?component'
 
-const { upvotes } = defineProps<{ upvotes: number; comments: number }>()
+const { upvotes, comments } = defineProps<{
+  upvotes: number
+  comments: number
+  permalink: string
+}>()
 
-const formattedScore = Intl.NumberFormat('en', { notation: 'compact' }).format(upvotes)
+const numberFormatter = Intl.NumberFormat('en', { notation: 'compact' })
+
+const formattedScore = computed(() => numberFormatter.format(upvotes))
+
+const formattedComments = computed(() => numberFormatter.format(comments))
 </script>
 
 <style lang="scss" scoped>

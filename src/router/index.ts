@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '@/views/HomeView.vue'
 import SubredditView from '@/views/SubredditView.vue'
+import PostView from '@/views/PostView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -14,6 +15,11 @@ const router = createRouter({
       path: '/r/:subreddit',
       name: 'subreddit-detail',
       component: SubredditView,
+    },
+    {
+      path: '/r/:subreddit/comments/:id/:title',
+      name: 'post-detail',
+      component: PostView,
     },
   ],
 })

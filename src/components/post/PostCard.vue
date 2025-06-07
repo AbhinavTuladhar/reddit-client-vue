@@ -13,7 +13,7 @@
     <div v-else-if="selftext" class="post__description">
       {{ selftext }}
     </div>
-    <PostCardFooter :upvotes="ups" :comments="23" />
+    <PostCardFooter :upvotes="ups" :comments="num_comments" :permalink="permalink" />
 
     <div class="hidden">
       <div>Subreddit: {{ subreddit }}</div>
@@ -53,6 +53,8 @@ const {
   gallery_images,
   video,
   selftext,
+  permalink,
+  num_comments,
 } = transformPostResponse(post)
 
 const subredditLink = `/r/${subreddit}`
