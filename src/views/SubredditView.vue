@@ -1,6 +1,6 @@
 <template>
   <div>
-    <SubredditBanner v-if="!bannerFlag" :subreddit="subreddit" />
+    <SubredditBanner v-if="!bannerAndSidebarFlag" :subreddit="subreddit" />
     <div class="subreddit-grid">
       <div class="left-column">
         <div v-if="isLoadingPosts">Loading...</div>
@@ -14,7 +14,7 @@
           />
         </div>
       </div>
-      <div class="right-colum">
+      <div v-if="!bannerAndSidebarFlag" class="right-column">
         <SubredditSidebar :subreddit="subreddit" />
       </div>
     </div>
@@ -36,7 +36,7 @@ const route = useRoute()
 
 const subreddit = computed(() => route.params.subreddit as string)
 
-const bannerFlag = computed(() => subredditsWithoutBanner.includes(subreddit.value))
+const bannerAndSidebarFlag = computed(() => subredditsWithoutBanner.includes(subreddit.value))
 
 const {
   data: subredditData,
