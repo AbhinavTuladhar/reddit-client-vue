@@ -23,12 +23,13 @@
 </template>
 
 <script setup lang="ts">
-import SubredditService from '@/services/subreddit.service'
-import { useQuery } from '@tanstack/vue-query'
 import { computed } from 'vue'
-import { transformSubredditAboutResponse } from '../../helpers/subreddit.helpers'
+import { useQuery } from '@tanstack/vue-query'
 
 import Cake from '@/assets/icons/cake.svg?component'
+import { transformSubredditAboutResponse } from '@/helpers/subreddit.helpers'
+import SubredditService from '@/services/subreddit.service'
+import { numberFormatter } from '@/utils/number.utils'
 
 const { subreddit } = defineProps<{ subreddit: string }>()
 
@@ -37,8 +38,6 @@ const { data, isLoading, isError } = useQuery({
   queryFn: () => SubredditService.getAboutSubreddit(subreddit),
   select: (data) => transformSubredditAboutResponse(data),
 })
-
-const numberFormatter = Intl.NumberFormat('en', { notation: 'compact' })
 
 const information = computed(() => {
   if (!data.value) return

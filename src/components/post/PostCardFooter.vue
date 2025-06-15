@@ -21,14 +21,13 @@ import { computed } from 'vue'
 import Comment from '@/assets/icons/comment.svg?component'
 import Share from '@/assets/icons/share.svg?component'
 import UpvoteArrow from '@/assets/icons/arrow.svg?component'
+import { numberFormatter } from '@/utils/number.utils'
 
 const { upvotes, comments } = defineProps<{
   upvotes: number
   comments: number
   permalink: string
 }>()
-
-const numberFormatter = Intl.NumberFormat('en', { notation: 'compact' })
 
 const formattedScore = computed(() => numberFormatter.format(upvotes))
 
