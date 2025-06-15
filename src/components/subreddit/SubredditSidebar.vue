@@ -3,19 +3,19 @@
     <div>
       <div v-if="isLoading">Loading...</div>
       <div v-else-if="isError">Error</div>
-      <div v-else-if="!data">No data</div>
+      <div v-else-if="!data || !information">No data</div>
       <div v-else>
-        <h2 class="sidebar__title">{{ title }}</h2>
+        <h2 class="sidebar__title">{{ information.title }}</h2>
         <div class="sidebar__description">
-          {{ description }}
+          {{ information.description }}
         </div>
         <div class="sidebar__icon-text-row">
           <Cake />
-          <span> {{ creationDate }} </span>
+          <span> {{ information.creationDate }} </span>
         </div>
         <div class="sidebar__icon-text-row">
           <Cake />
-          <span> {{ subscribers.toLocaleString() }} </span>
+          <span> {{ information.subscribers.toLocaleString() }} </span>
         </div>
       </div>
     </div>
@@ -40,21 +40,20 @@ const { data, isLoading, isError } = useQuery({
 
 const numberFormatter = Intl.NumberFormat('en', { notation: 'compact' })
 
-const title = computed(() => data.value?.title ?? '')
-const description = computed(() => data.value?.public_description ?? '')
-const creationDate = computed(() => {
-  const unixTime = data.value?.created_utc
+const information = computed(() => {
+  if (!data.value) return
 
-  if (unixTime) {
-    const convertedData = new Date(unixTime * 1000)
-    // return Intl.DateTimeFormat('en-GB').format(convertedData)
-    return convertedData.toLocaleDateString('fr-CA')
+  const { title, public_description, created_utc, subscribers } = data.value || {}
+
+  const creationDate = new Date(created_utc * 1000).toLocaleDateString('fr-CA')
+
+  return {
+    title,
+    description: public_description,
+    creationDate,
+    subscribers: numberFormatter.format(subscribers),
   }
-
-  return null
 })
-
-const subscribers = computed(() => numberFormatter.format(data.value?.subscribers ?? 0))
 </script>
 
 <style scoped lang="scss">
