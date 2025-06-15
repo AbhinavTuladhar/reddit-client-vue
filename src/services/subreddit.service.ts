@@ -1,4 +1,4 @@
-import type { AboutSubreddit, Subreddit } from '@/types/subreddit'
+import type { SubredditRules, AboutSubreddit, Subreddit } from '@/types/subreddit'
 import Api from './api'
 
 class SubredditService {
@@ -9,6 +9,11 @@ class SubredditService {
 
   static async getAboutSubreddit(subreddit: string) {
     const response = await Api.get<AboutSubreddit>(`/r/${subreddit}/about`)
+    return response.data
+  }
+
+  static async getRules(subreddit: string) {
+    const response = await Api.get<SubredditRules>(`/r/${subreddit}/about/rules`)
     return response.data
   }
 }

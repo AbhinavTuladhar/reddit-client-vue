@@ -5,34 +5,38 @@
       <div v-else-if="isError">Error</div>
       <div v-else-if="!data || !information">No data</div>
       <div v-else>
-        <h2 class="sidebar__title">{{ information.title }}</h2>
-        <div class="sidebar__description">
-          {{ information.description }}
-        </div>
-        <div class="sidebar__icon-text-row">
-          <Cake />
-          <span> Created on {{ information.creationDate }} </span>
-        </div>
-        <div class="sidebar__members-grid">
-          <div>
-            <div class="sidebar__member-count">
-              {{ information.subscribers }}
-            </div>
-
-            <div class="sidebar__member-text">Members</div>
+        <section class="sidebar__intro">
+          <h2 class="sidebar__title">{{ information.title }}</h2>
+          <div class="sidebar__description">
+            {{ information.description }}
           </div>
+          <div class="sidebar__icon-text-row">
+            <Cake />
+            <span> Created on {{ information.creationDate }} </span>
+          </div>
+          <div class="sidebar__members-grid">
+            <div>
+              <div class="sidebar__member-count">
+                {{ information.subscribers }}
+              </div>
 
-          <div>
-            <div class="sidebar__member-count">
-              {{ information.online }}
+              <div class="sidebar__member-text">Members</div>
             </div>
 
-            <div class="sidebar__online-row">
-              <div class="sidebar__green-circle"></div>
-              <div class="sidebar__member-text">Online</div>
+            <div>
+              <div class="sidebar__member-count">
+                {{ information.online }}
+              </div>
+
+              <div class="sidebar__online-row">
+                <div class="sidebar__green-circle"></div>
+                <div class="sidebar__member-text">Online</div>
+              </div>
             </div>
           </div>
-        </div>
+        </section>
+
+        <SubredditRules :subreddit="subreddit" />
       </div>
     </div>
   </aside>
@@ -46,6 +50,7 @@ import Cake from '@/assets/icons/cake.svg?component'
 import { transformSubredditAboutResponse } from '@/helpers/subreddit.helpers'
 import SubredditService from '@/services/subreddit.service'
 import { numberFormatter } from '@/utils/number.utils'
+import SubredditRules from './SubredditRules.vue'
 
 const { subreddit } = defineProps<{ subreddit: string }>()
 
@@ -77,12 +82,16 @@ const information = computed(() => {
 .sidebar {
   position: sticky;
   top: 0;
-  padding: 1rem;
+  padding-block: 1rem;
   height: 100dvh;
   background: black;
-  overflow: auto;
+  overflow: scroll;
   color: var(--reddit-weak-text);
   font-size: 0.875rem;
+
+  &__intro {
+    padding-inline: 1rem;
+  }
 
   &__title {
     font-weight: bold;
