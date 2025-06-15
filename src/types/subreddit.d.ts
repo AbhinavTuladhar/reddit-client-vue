@@ -41,7 +41,7 @@ export interface AboutSubredditDetail {
   submit_text: string
   description_html: string
   spoilers_enabled: boolean
-  comment_contribution_settings: Commentcontributionsettings
+  comment_contribution_settings: CommentContributionsettings
   header_size: number[]
   all_original_content: boolean
   created: number
@@ -73,6 +73,21 @@ export interface AboutSubredditDetail {
   user_is_contributor: null
 }
 
-interface Commentcontributionsettings {
+interface CommentContributionsettings {
   allowed_media_types: null
+}
+
+export interface SubredditRules {
+  rules: Array<SubredditRule>
+  site_rules: Array<string>
+}
+
+interface SubredditRule {
+  kind: string
+  description: string
+  short_name: string
+  violation_reason: string
+  created_utc: number
+  priority: number
+  description_html: string
 }
