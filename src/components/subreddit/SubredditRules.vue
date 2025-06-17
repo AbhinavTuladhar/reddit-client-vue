@@ -41,6 +41,8 @@ const { data, isLoading, isError } = useQuery({
 }
 
 .accordion {
+  word-break: break-word;
+
   &__title {
     display: flex;
     gap: 0.5rem;
