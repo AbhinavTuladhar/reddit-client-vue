@@ -2,13 +2,17 @@
   <div>
     <div v-if="isLoading">Loading...</div>
     <div v-else-if="isError">Error</div>
-    <div v-else-if="!data">No data</div>
+    <div v-else-if="!information">No data</div>
     <div v-else class="banner-container">
-      <img v-if="bannerImage" class="sub-banner" :src="sanitiseImageUrl(bannerImage)" />
+      <img
+        v-if="information.bannerImage"
+        class="sub-banner"
+        :src="sanitiseImageUrl(information.bannerImage)"
+      />
       <div v-else class="sub-banner sub-banner--fallback"></div>
 
       <div class="sub-banner__icon-title-container">
-        <img class="sub-icon" :src="sanitiseImageUrl(subredditIcon)" />
+        <img class="sub-icon" :src="sanitiseImageUrl(information.subredditIcon)" />
         <h2>r/{{ subreddit }}</h2>
       </div>
     </div>
@@ -22,26 +26,32 @@ import { useQuery } from '@tanstack/vue-query'
 import SubredditService from '@/services/subreddit.service'
 import { sanitiseImageUrl } from '@/utils/string.utils'
 import { watch } from 'vue'
+import { transformSubredditAboutResponse } from '@/helpers/subreddit.helpers'
 
 const { subreddit } = defineProps<{ subreddit: string }>()
 
 const { data, isLoading, isError } = useQuery({
   queryKey: ['subreddit-about', subreddit],
   queryFn: () => SubredditService.getAboutSubreddit(subreddit),
+  select: (data) => transformSubredditAboutResponse(data),
 })
 
-const bannerImage = computed(() => data.value?.data.banner_background_image ?? '')
-const subredditIcon = computed(() => {
-  const firstIcon = data.value?.data.icon_img
-  const secondIcon = data.value?.data.community_icon
+const information = computed(() => {
+  if (!data.value) return
 
-  return firstIcon || secondIcon || ''
+  const { icon_img, community_icon, banner_background_image } = data.value || {}
+
+  return {
+    subredditIcon: icon_img || community_icon || '',
+    bannerImage: banner_background_image,
+  }
 })
 
 watch(data, () => {
-  if (data.value) {
-    console.log(data.value)
-  }
+  if (!data.value) return
+
+  // Set the title of the page dynamically
+  document.title = data.value.title
 })
 </script>
 
