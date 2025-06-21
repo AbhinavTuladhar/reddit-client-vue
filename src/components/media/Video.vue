@@ -17,8 +17,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { onMounted } from 'vue'
+import { onMounted, ref } from 'vue'
 
 import type { Post } from '@/types/post'
 import { decodeHTML, sanitiseImageUrl } from '@/utils/string.utils'
