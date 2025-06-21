@@ -22,7 +22,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, watch } from 'vue'
+import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useQuery } from '@tanstack/vue-query'
 import PostCard from '@/components/post/PostCard.vue'
@@ -45,14 +45,6 @@ const {
 } = useQuery({
   queryKey: ['subreddit', subreddit],
   queryFn: () => SubredditService.getPosts(subreddit.value),
-})
-
-watch(subredditData, () => {
-  if (!subredditData.value) {
-    return
-  }
-  console.log(transformSubredditResponse(subredditData.value))
-  // console.log(subredditData.value)
 })
 </script>
 

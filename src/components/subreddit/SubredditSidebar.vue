@@ -85,7 +85,8 @@ const information = computed(() => {
   padding-block: 1rem;
   height: 100dvh;
   background: black;
-  overflow: scroll;
+  overflow: auto;
+  scrollbar-gutter: stable;
   color: var(--reddit-weak-text);
   font-size: 0.875rem;
 
@@ -108,7 +109,7 @@ const information = computed(() => {
 
   &__members-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     margin-top: 0.75rem;
   }
 

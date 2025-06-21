@@ -1,5 +1,6 @@
 <template>
   <article class="post">
+    <a class="post__link" :href="permalink"></a>
     <div class="first-row">
       <span class="post__sub-icon">r/</span>
       <RouterLink class="post__subreddit" :to="subredditLink"> {{ `r/${subreddit}` }}</RouterLink>
@@ -7,27 +8,18 @@
       <span class="post__date"> {{ calculateDateString(new Date(created * 1000)) }}</span>
     </div>
     <h2 class="post__title">{{ title }}</h2>
-    <SingleImage v-if="image" :image="image" />
-    <ImageGallery v-else-if="gallery_images" :images="gallery_images" />
-    <Video v-else-if="video" :video="video" />
-    <div v-else-if="selftext" class="post__description">
+    <!-- When interacting with a text-only post, take it to the single post page. -->
+    <div v-if="selftext && !image && !gallery_images && !video">
       {{ selftext }}
     </div>
-    <PostCardFooter :upvotes="ups" :comments="num_comments" :permalink="permalink" />
-
-    <div class="hidden">
-      <div>Subreddit: {{ subreddit }}</div>
-      <div>Author: {{ author }}</div>
-      <div>Title: {{ title }}</div>
-      <div>Score: {{ score }}</div>
-      <div>Upvotes: {{ ups }}</div>
-      <div>Url: {{ url }}</div>
-      <div>Created at: {{ new Date(created * 1000) }}</div>
-      <pre v-if="secure_media">
-        {{ JSON.stringify(secure_media, null, 2) }}
-      </pre>
+    <div class="post__interactive-media">
+      <SingleImage v-if="image" :image="image" />
+      <ImageGallery v-else-if="gallery_images" :images="gallery_images" />
+      <Video v-else-if="video" :video="video" />
     </div>
+    <PostCardFooter :upvotes="ups" :comments="num_comments" :permalink="permalink" />
   </article>
+  <hr />
 </template>
 
 <script setup lang="ts">
@@ -41,13 +33,9 @@ import PostCardFooter from '../post/PostCardFooter.vue'
 
 const { post } = defineProps<{ post: Post }>()
 const {
-  author,
   title,
-  score,
   subreddit,
-  url,
   ups,
-  secure_media,
   created,
   image,
   gallery_images,
@@ -66,8 +54,24 @@ const subredditLink = `/r/${subreddit}`
 }
 
 .post {
+  position: relative;
+  padding: 0.25rem 1rem;
+  max-width: 45.75rem;
+  border-radius: 0.75rem;
+  transition: background 0.4s ease-out;
+  isolation: isolate;
+
+  &:hover {
+    background: var(--reddit-card-hover-background);
+  }
+
   img {
     max-width: 320px;
+  }
+
+  &__link {
+    position: absolute;
+    inset: 0;
   }
 
   &__sub-icon {
@@ -83,6 +87,11 @@ const subredditLink = `/r/${subreddit}`
     margin-right: 1rem;
   }
 
+  &__subreddit {
+    position: relative;
+    z-index: 10;
+  }
+
   &__title {
     margin-block: 0.5rem 1rem;
     font-size: 1.25rem;
@@ -96,5 +105,14 @@ const subredditLink = `/r/${subreddit}`
     -webkit-line-clamp: 4;
     line-clamp: 4;
   }
+
+  &__post-interactive-media {
+    position: relative;
+    z-index: 10;
+  }
+}
+
+hr {
+  border: 1px solid var(--reddit-card-hover-background);
 }
 </style>
