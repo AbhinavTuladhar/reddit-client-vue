@@ -3,7 +3,7 @@ import type { Post } from '@/types/post'
 import { sanitiseImageUrl } from '@/utils/string.utils'
 
 export const transformPostResponse = (post: Post) => {
-  const { preview, media_metadata, secure_media, url, ...rest } = post
+  const { preview, media_metadata, secure_media, url, is_gallery, is_video, ...rest } = post
 
   /**
    * Depending on the type of the post, certain keys are present or absent
@@ -17,7 +17,17 @@ export const transformPostResponse = (post: Post) => {
   let gallery_images: GalleryImage[] | undefined = undefined
   let video: typeof secure_media = undefined
 
-  if (preview && !secure_media) {
+  if (is_gallery && media_metadata) {
+    const imagesList = Object.values(media_metadata)
+    const targetImageList = imagesList.map((image) => image.s)
+    gallery_images = targetImageList.map((image) => ({
+      u: sanitiseImageUrl(image.u),
+      x: image.x,
+      y: image.y,
+    }))
+  } else if (is_video) {
+    video = secure_media
+  } else if (preview) {
     // Images with different resolutions
     const imagesList = preview.images[preview.images.length - 1].resolutions
     const targetImage = imagesList[imagesList.length - 1]
@@ -26,16 +36,6 @@ export const transformPostResponse = (post: Post) => {
       height: targetImage.height,
       url: targetImage.url,
     }
-  } else if (media_metadata) {
-    const imagesList = Object.values(media_metadata)
-    const targetImageList = imagesList.map((image) => image.s)
-    gallery_images = targetImageList.map((image) => ({
-      u: sanitiseImageUrl(image.u),
-      x: image.x,
-      y: image.y,
-    }))
-  } else {
-    video = secure_media
   }
 
   const isRedditLink = url.includes('reddit.com')

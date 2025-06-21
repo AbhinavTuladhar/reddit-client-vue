@@ -38,6 +38,7 @@ import SubredditBanner from '@/components/subreddit/SubredditBanner.vue'
 import { subredditsWithoutBanner } from '@/data/subreddit.data'
 import PageLayout from '@/layouts/PageLayout.vue'
 import Sidebar from '@/components/layouts/Sidebar/Sidebar.vue'
+import { watch } from 'vue'
 
 const route = useRoute()
 
@@ -52,6 +53,12 @@ const {
 } = useQuery({
   queryKey: ['subreddit', subreddit],
   queryFn: () => SubredditService.getPosts(subreddit.value),
+})
+
+watch(subredditData, () => {
+  if (!subredditData.value) return
+
+  console.log(transformSubredditResponse(subredditData.value))
 })
 </script>
 
