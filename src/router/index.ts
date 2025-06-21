@@ -1,7 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
+
 import HomeView from '@/views/HomeView.vue'
-import SubredditView from '@/views/SubredditView.vue'
 import PostView from '@/views/PostView.vue'
+import SubredditView from '@/views/SubredditView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

@@ -23,8 +23,10 @@
 </template>
 
 <script setup lang="ts">
-import SubredditService from '@/services/subreddit.service'
 import { useQuery } from '@tanstack/vue-query'
+
+import SubredditService from '@/services/subreddit.service'
+
 import Accordion from '../ui/Accordion.vue'
 
 const { subreddit } = defineProps<{ subreddit: string }>()

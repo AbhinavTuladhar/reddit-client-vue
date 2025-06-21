@@ -1,4 +1,5 @@
 import { transformSubredditResponse } from '@/helpers/subreddit.helpers'
+
 import type { Post } from './post'
 
 export type SubredditTransformed = ReturnType<typeof transformSubredditResponse>

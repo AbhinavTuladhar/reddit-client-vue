@@ -11,10 +11,11 @@
 </template>
 
 <script setup lang="ts">
-import { useQuery } from '@tanstack/vue-query'
-import { useRoute } from 'vue-router'
-import PostService from '@/services/post.service'
 import { computed, watch } from 'vue'
+import { useRoute } from 'vue-router'
+import { useQuery } from '@tanstack/vue-query'
+
+import PostService from '@/services/post.service'
 
 interface PostParams {
   subreddit: string

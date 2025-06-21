@@ -1,4 +1,5 @@
-import type { SubredditRules, AboutSubreddit, Subreddit } from '@/types/subreddit'
+import type { AboutSubreddit, Subreddit, SubredditRules } from '@/types/subreddit'
+
 import Api from './api'
 
 class SubredditService {

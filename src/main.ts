@@ -1,6 +1,5 @@
 import { createApp } from 'vue'
 import { VueQueryPlugin, type VueQueryPluginOptions } from '@tanstack/vue-query'
-
 import { createPinia } from 'pinia'
 import { register } from 'swiper/element/bundle'
 
