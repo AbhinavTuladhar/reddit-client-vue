@@ -22,14 +22,15 @@
 </template>
 
 <script setup lang="ts">
-import { Swiper, SwiperSlide } from 'swiper/vue'
 import { Navigation, Pagination } from 'swiper/modules'
+import { Swiper, SwiperSlide } from 'swiper/vue'
+
+import SingleImage from '@/components/media/SingleImage.vue'
+import type { GalleryImage } from '@/types/media'
 
 import 'swiper/css'
 import 'swiper/css/navigation'
 import 'swiper/css/pagination'
-import type { GalleryImage } from '@/types/media'
-import SingleImage from '@/components/media/SingleImage.vue'
 defineProps<{ images: GalleryImage[] }>()
 
 const modules = [Navigation, Pagination]

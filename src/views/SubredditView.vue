@@ -28,17 +28,19 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import { watch } from 'vue'
 import { useRoute } from 'vue-router'
 import { useQuery } from '@tanstack/vue-query'
+
+import Sidebar from '@/components/layouts/Sidebar/Sidebar.vue'
 import PostCard from '@/components/post/PostCard.vue'
-import SubredditSidebar from '@/components/subreddit/SubredditSidebar.vue'
-import SubredditService from '@/services/subreddit.service'
-import { transformSubredditResponse } from '../helpers/subreddit.helpers'
 import SubredditBanner from '@/components/subreddit/SubredditBanner.vue'
+import SubredditSidebar from '@/components/subreddit/SubredditSidebar.vue'
 import { subredditsWithoutBanner } from '@/data/subreddit.data'
 import PageLayout from '@/layouts/PageLayout.vue'
-import Sidebar from '@/components/layouts/Sidebar/Sidebar.vue'
-import { watch } from 'vue'
+import SubredditService from '@/services/subreddit.service'
+
+import { transformSubredditResponse } from '../helpers/subreddit.helpers'
 
 const route = useRoute()
 

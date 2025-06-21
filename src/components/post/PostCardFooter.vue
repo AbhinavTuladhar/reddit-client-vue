@@ -18,9 +18,10 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
+
+import UpvoteArrow from '@/assets/icons/arrow.svg?component'
 import Comment from '@/assets/icons/comment.svg?component'
 import Share from '@/assets/icons/share.svg?component'
-import UpvoteArrow from '@/assets/icons/arrow.svg?component'
 import { numberFormatter } from '@/utils/number.utils'
 
 const { upvotes, comments } = defineProps<{

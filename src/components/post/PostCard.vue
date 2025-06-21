@@ -23,9 +23,10 @@
 </template>
 
 <script setup lang="ts">
-import type { Post } from '@/types/post'
 import { transformPostResponse } from '@/helpers/post.helpers'
+import type { Post } from '@/types/post'
 import { calculateDateString } from '@/utils/date.utils'
+
 import ImageGallery from '../media/ImageGallery.vue'
 import SingleImage from '../media/SingleImage.vue'
 import Video from '../media/Video.vue'

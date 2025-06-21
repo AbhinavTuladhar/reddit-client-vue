@@ -50,6 +50,7 @@ import Cake from '@/assets/icons/cake.svg?component'
 import { transformSubredditAboutResponse } from '@/helpers/subreddit.helpers'
 import SubredditService from '@/services/subreddit.service'
 import { numberFormatter } from '@/utils/number.utils'
+
 import SubredditRules from './SubredditRules.vue'
 
 const { subreddit } = defineProps<{ subreddit: string }>()

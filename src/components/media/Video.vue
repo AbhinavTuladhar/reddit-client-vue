@@ -18,9 +18,10 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { onMounted } from 'vue'
+
 import type { Post } from '@/types/post'
 import { decodeHTML, sanitiseImageUrl } from '@/utils/string.utils'
-import { onMounted } from 'vue'
 
 const { video } = defineProps<{ video: Post['secure_media'] }>()
 const iframeContainer = ref<HTMLElement | null>()
