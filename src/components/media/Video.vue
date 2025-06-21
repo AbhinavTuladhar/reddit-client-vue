@@ -48,6 +48,10 @@ onMounted(() => {
 .video-container {
   width: min(100%, 38.75rem);
 
+  video {
+    max-height: 24.375rem;
+  }
+
   iframe {
     width: 100%;
     min-height: 13.75rem !important;

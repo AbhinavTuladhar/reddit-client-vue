@@ -8,6 +8,8 @@ export interface Post {
   subreddit_name_prefixed: string
   downs: number
   name: string
+  is_gallery: boolean
+  is_video: boolean
   link_flair_text_color: string
   ups: number
   total_awards_received: number

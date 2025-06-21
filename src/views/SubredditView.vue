@@ -1,24 +1,29 @@
 <template>
-  <div>
-    <SubredditBanner v-if="!bannerAndSidebarFlag" :subreddit="subreddit" />
-    <div class="subreddit-grid">
-      <div class="left-column">
-        <div v-if="isLoadingPosts">Loading...</div>
-        <div v-else-if="isPostsError">Error</div>
-        <div v-else-if="!subredditData">No data</div>
-        <div v-else class="post-card-container">
-          <PostCard
-            v-for="post in transformSubredditResponse(subredditData).posts"
-            :key="post.id"
-            :post="post"
-          />
+  <PageLayout>
+    <template #sidebar>
+      <Sidebar />
+    </template>
+    <template #content>
+      <SubredditBanner v-if="!bannerAndSidebarFlag" :subreddit="subreddit" />
+      <div class="subreddit-grid">
+        <div class="left-column">
+          <div v-if="isLoadingPosts">Loading...</div>
+          <div v-else-if="isPostsError">Error</div>
+          <div v-else-if="!subredditData">No data</div>
+          <div v-else class="post-card-container">
+            <PostCard
+              v-for="post in transformSubredditResponse(subredditData).posts"
+              :key="post.id"
+              :post="post"
+            />
+          </div>
+        </div>
+        <div v-if="!bannerAndSidebarFlag" class="right-column">
+          <SubredditSidebar :subreddit="subreddit" />
         </div>
       </div>
-      <div v-if="!bannerAndSidebarFlag" class="right-column">
-        <SubredditSidebar :subreddit="subreddit" />
-      </div>
-    </div>
-  </div>
+    </template>
+  </PageLayout>
 </template>
 
 <script setup lang="ts">
@@ -31,6 +36,9 @@ import SubredditService from '@/services/subreddit.service'
 import { transformSubredditResponse } from '../helpers/subreddit.helpers'
 import SubredditBanner from '@/components/subreddit/SubredditBanner.vue'
 import { subredditsWithoutBanner } from '@/data/subreddit.data'
+import PageLayout from '@/layouts/PageLayout.vue'
+import Sidebar from '@/components/layouts/Sidebar/Sidebar.vue'
+import { watch } from 'vue'
 
 const route = useRoute()
 
@@ -45,6 +53,12 @@ const {
 } = useQuery({
   queryKey: ['subreddit', subreddit],
   queryFn: () => SubredditService.getPosts(subreddit.value),
+})
+
+watch(subredditData, () => {
+  if (!subredditData.value) return
+
+  console.log(transformSubredditResponse(subredditData.value))
 })
 </script>
 

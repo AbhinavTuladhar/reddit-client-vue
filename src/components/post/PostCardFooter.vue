@@ -38,6 +38,7 @@ const formattedComments = computed(() => numberFormatter.format(comments))
 .post__footer {
   display: flex;
   gap: 1rem;
+  margin-top: 0.5rem;
 
   .badge {
     display: flex;

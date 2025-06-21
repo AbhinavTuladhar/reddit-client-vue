@@ -13,13 +13,14 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import { useSlots } from 'vue'
-import { ref } from 'vue'
+import { computed, ref, useSlots, defineProps } from 'vue'
 
-const isActive = ref(false)
+const props = defineProps<{
+  isDefaultOpen?: boolean
+}>()
 
-// For checking if the accordion has a body content or not. If not, hide the caret and body.
+const isActive = ref(props.isDefaultOpen ?? false)
+
 const slots = useSlots()
 const hasBody = computed(() => !!slots.body)
 
@@ -47,13 +48,14 @@ const handleAccordionClick = () => {
     border: 1px solid white;
     border-width: 0 2px 2px 0;
     transform: rotate(45deg);
-    transition: all 0.4s ease-out;
+    transition: all 0.2s ease-out;
   }
 
   &__body {
     display: grid;
     grid-template-rows: 0fr;
-    transition: all 0.4s ease-out;
+    opacity: 0;
+    transition: all 0.2s ease-out;
 
     > div {
       overflow: hidden;
@@ -63,6 +65,7 @@ const handleAccordionClick = () => {
   &.active {
     .accordion__body {
       grid-template-rows: 1fr;
+      opacity: 1;
       padding-block: 0.5rem;
     }
 

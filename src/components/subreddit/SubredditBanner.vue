@@ -62,7 +62,7 @@ watch(data, () => {
   object-fit: cover;
 
   &--fallback {
-    height: 5rem;
+    height: 8rem;
     background: var(--reddit-gray);
   }
 
