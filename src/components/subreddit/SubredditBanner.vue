@@ -20,8 +20,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-import { watch } from 'vue'
+import { computed, watch } from 'vue'
 import { useQuery } from '@tanstack/vue-query'
 
 import { transformSubredditAboutResponse } from '@/helpers/subreddit.helpers'
