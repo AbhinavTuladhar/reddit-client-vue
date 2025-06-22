@@ -13,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, defineProps, ref, useSlots } from 'vue'
+import { computed, ref, useSlots } from 'vue'
 
 const props = defineProps<{
   isDefaultOpen?: boolean

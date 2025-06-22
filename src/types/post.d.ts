@@ -33,6 +33,7 @@ export interface Post {
   preview?: ImagePreview
   upvote_ratio: number
   media_metadata?: Record<string, Gallery>
+  post_hint: string
 }
 
 export interface SecureMedia {
