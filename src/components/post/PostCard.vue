@@ -1,12 +1,7 @@
 <template>
   <article class="post">
     <a class="post__link" :href="permalink"></a>
-    <div class="first-row">
-      <span class="post__sub-icon">r/</span>
-      <RouterLink class="post__subreddit" :to="subredditLink"> {{ `r/${subreddit}` }}</RouterLink>
-      <span class="post__dot"> . </span>
-      <span class="post__date"> {{ calculateDateString(new Date(created * 1000)) }}</span>
-    </div>
+    <PostMeta :subreddit="subreddit" :created="created" :subreddit-link="subredditLink" />
 
     <!-- Show the post title here only if it is not an external link -->
     <PostTitle v-if="!isExternalLink"> {{ title }} </PostTitle>
@@ -40,7 +35,6 @@ import { computed } from 'vue'
 
 import { transformPostResponse } from '@/helpers/post.helpers'
 import type { Post } from '@/types/post'
-import { calculateDateString } from '@/utils/date.utils'
 
 import ImageGallery from '../media/ImageGallery.vue'
 import SingleImage from '../media/SingleImage.vue'
@@ -49,6 +43,7 @@ import PostCardFooter from '../post/PostCardFooter.vue'
 import PostTitle from '../ui/PostTitle.vue'
 
 import ExternalLinkGrid from './ExternalLinkGrid.vue'
+import PostMeta from './PostMeta.vue'
 
 const { post } = defineProps<{ post: Post }>()
 const {
