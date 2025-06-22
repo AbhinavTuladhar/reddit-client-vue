@@ -1,19 +1,27 @@
 <template>
   <article class="post">
     <a class="post__link" :href="permalink"></a>
-    <div class="first-row">
-      <span class="post__sub-icon">r/</span>
-      <RouterLink class="post__subreddit" :to="subredditLink"> {{ `r/${subreddit}` }}</RouterLink>
-      <span class="post__dot"> . </span>
-      <span class="post__date"> {{ calculateDateString(new Date(created * 1000)) }}</span>
-    </div>
-    <h2 class="post__title">{{ title }}</h2>
+    <PostMeta :subreddit="subreddit" :created="created" :subreddit-link="subredditLink" />
+
+    <!-- Show the post title here only if it is not an external link -->
+    <PostTitle v-if="!isExternalLink"> {{ title }} </PostTitle>
+
+    <!-- in the case that it is an external link. -->
+    <ExternalLinkGrid
+      v-if="isExternalLink && image"
+      :is-external-link="isExternalLink"
+      :title="title"
+      :url="url"
+      :image-source="image?.url"
+    />
+
     <!-- When interacting with a text-only post, take it to the single post page. -->
     <div v-if="selftext && !image && !gallery_images && !video">
       {{ selftext }}
     </div>
+
     <div class="post__interactive-media">
-      <SingleImage v-if="image" :image="image" />
+      <SingleImage v-if="image && !isExternalLink" :image="image" />
       <ImageGallery v-else-if="gallery_images" :images="gallery_images" />
       <Video v-else-if="video" :video="video" />
     </div>
@@ -23,14 +31,19 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
+
 import { transformPostResponse } from '@/helpers/post.helpers'
 import type { Post } from '@/types/post'
-import { calculateDateString } from '@/utils/date.utils'
 
 import ImageGallery from '../media/ImageGallery.vue'
 import SingleImage from '../media/SingleImage.vue'
 import Video from '../media/Video.vue'
 import PostCardFooter from '../post/PostCardFooter.vue'
+import PostTitle from '../ui/PostTitle.vue'
+
+import ExternalLinkGrid from './ExternalLinkGrid.vue'
+import PostMeta from './PostMeta.vue'
 
 const { post } = defineProps<{ post: Post }>()
 const {
@@ -44,9 +57,13 @@ const {
   selftext,
   permalink,
   num_comments,
+  post_hint,
+  url,
 } = transformPostResponse(post)
 
 const subredditLink = `/r/${subreddit}`
+
+const isExternalLink = computed(() => post_hint === 'link')
 </script>
 
 <style lang="scss" scoped>
@@ -93,12 +110,6 @@ const subredditLink = `/r/${subreddit}`
     z-index: 10;
   }
 
-  &__title {
-    margin-block: 0.5rem 1rem;
-    font-size: 1.25rem;
-    font-weight: bold;
-  }
-
   &__description {
     overflow: hidden;
     display: -webkit-box;
@@ -107,7 +118,7 @@ const subredditLink = `/r/${subreddit}`
     line-clamp: 4;
   }
 
-  &__post-interactive-media {
+  &__interactive-media {
     position: relative;
     z-index: 10;
   }
